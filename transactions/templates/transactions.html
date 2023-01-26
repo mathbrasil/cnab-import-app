@@ -1,8 +1,59 @@
 {% extends 'base/base.html' %}
 
 {% block content %}
-<center>
-  <h1>Transactions</h1>
-</center>
+
+<div class="container">
+    <center>
+        <h1>Transações</h1>
+    </center>
+
+    {% if not transactions %}
+    <p>
+        Para visualizar as transações, realize o upload do arquivo CNAB na
+        página inicial
+    </p>
+    {% endif %}
+
+    <br /><br />
+    <div class="container">
+
+        {% for store in transactions %}
+
+        <h3>{{ store.0.store_name }}</h3>
+        <p>Proprietário: {{ store.0.store_owner }}</p>
+        <table class="table table-hover rounded">
+            <thead>
+                <tr class="table-dark">
+                    <th>tipo</th>
+                    <th>data</th>
+                    <th>hora</th>
+                    <th>valor</th>
+                    <th>cpf</th>
+                    <th>cartão</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                {% for transaction in store %}
+
+                <tr class="table-light">
+                    <td>{{transaction.type}}</td>
+                    <td>{{transaction.date}}</td>
+                    <td>{{transaction.hour}}</td>
+                    <td>{{transaction.value}}</td>
+                    <td>{{transaction.cpf}}</td>
+                    <td>{{transaction.card}}</td>
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+        </table>
+        <br /><br />
+
+        {% endfor %}
+        
+    </div>
+</div>
 
 {% endblock %}
